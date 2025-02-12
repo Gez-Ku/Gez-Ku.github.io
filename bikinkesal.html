@@ -37,13 +37,13 @@
      </div>
      <p id="ket">Sentuh LOVEnya!</p>
 
-     <div class="kumpulanwp" class="sembunyi">
+     <div class="kumpulanwp sembunyi">
          <img src="https://feeldreams.github.io/papjalan.jpeg" id="wallpaper2"/>
          <img src="https://feeldreams.github.io/papjalan3.jpeg" id="wallpaper3"/>
          <img src="https://feeldreams.github.io/paplalulintas4.jpeg" id="wallpaper4"/>
      </div>
 
-     <div id='pergeseran' class="sembunyi">
+     <div id="pergeseran" class="sembunyi">
          <p><b><span>hii ayaangggg</span></b></p>
          <p><b><span>maaf yaa kalo aku<br>suka bkin kamu kesel</span></b></p>
          <p><b><span>aku cuma mau bilang</span></b></p>
@@ -54,13 +54,8 @@
 
      <div id="pesanCinta" class="sembunyi">
        <blockquote id='bq'>
-         <p id="kalimat">
-           maaf ya aku belum bisa jadi yang terbaik buat kamu,<br><br>
-           aku juga gabisa sepenuhnya ngertiin gimana cara kamu ingin dicintai,<br><br>
-           aku terlalu banyak kurangnya buat cewe secantik kamu,<br><br>
-           tapi aku akan terus berusaha yang terbaik buat kamu hehe..
-         </p>
-         <p id="pesanAkhir">stay with me. i love uu 🤍</p>
+         <p id="kalimat"></p>
+         <p id="pesanAkhir"></p>
        </blockquote>
      </div>
    </div>
@@ -69,63 +64,51 @@
 const body = document.querySelector("body");
 const iniwp = [];
 let iden = 1;
-iniwp[1] = wallpaper.src;
-iniwp[2] = wallpaper2.src;
-iniwp[3] = wallpaper3.src;
-iniwp[4] = wallpaper4.src;
-katakata = document.getElementById("kalimat").innerHTML;
-pesanAkhir2 = document.getElementById("pesanAkhir").innerHTML;
-document.getElementById("kalimat").innerHTML = "";
-document.getElementById("pesanAkhir").innerHTML = "";
+iniwp[1] = document.getElementById("wallpaper").src;
+iniwp[2] = document.getElementById("wallpaper2").src;
+iniwp[3] = document.getElementById("wallpaper3").src;
+iniwp[4] = document.getElementById("wallpaper4").src;
 
-const swalst = Swal.mixin({
-    timer: 2500,
-    allowOutsideClick: false,
-    showConfirmButton: false,
-    timerProgressBar: true,
-    imageHeight: 90,
-});
+const kalimatText = `maaf ya aku belum bisa jadi yang terbaik buat kamu,<br><br>
+                     aku juga gabisa sepenuhnya ngertiin gimana cara kamu ingin dicintai,<br><br>
+                     aku terlalu banyak kurangnya buat cewe secantik kamu,<br><br>
+                     tapi aku akan terus berusaha yang terbaik buat kamu hehe..`;
+                     
+const pesanAkhirText = "stay with me. i love uu 🤍";
 
 const audio = new Audio(document.getElementById("linkmp3").src);
 
-function berjatuhan() {
-    const heart = document.createElement("div");
-    heart.className = "fas fa-heart";
-    heart.style.left = (Math.random() * 90) + "vw";
-    heart.style.animationDuration = (Math.random() * 3) + 2 + "s";
-    body.appendChild(heart);
-}
-
-setInterval(function () {
-    let heartArr = document.querySelectorAll(".fa-heart");
-    if (heartArr.length > 100) {
-        heartArr[0].remove();
-    }
-}, 100);
-
-document.getElementById("Content").style = "opacity:1;margin-top:14vh";
-
 function mulaiCerita() {
+    // Menyembunyikan tombol LOVE dan teks awal
     document.getElementById("loveIn").style.display = "none";
     document.getElementById("ket").style.display = "none";
+
+    // Menampilkan elemen transisi kedua
     document.getElementById("pergeseran").classList.remove("sembunyi");
     document.getElementById("ketgeser").classList.remove("sembunyi");
-    audio.play();
-    new TypeIt("#kalimat", {
-        speed: 50,
-        startDelay: 900
-    }).type(katakata).go();
-    new TypeIt("#pesanAkhir", {
-        speed: 50,
-        startDelay: 4000
-    }).type(pesanAkhir2).go();
-}
 
-const swals = Swal.mixin({
-    allowOutsideClick: false,
-    cancelButtonColor: '#FF0040',
-    imageHeight: 80,
-});
+    // Memutar lagu
+    audio.play();
+
+    // Menunggu beberapa detik lalu menampilkan teks transisi kedua
+    setTimeout(() => {
+        document.getElementById("pergeseran").classList.add("sembunyi");
+        document.getElementById("ketgeser").classList.add("sembunyi");
+        document.getElementById("pesanCinta").classList.remove("sembunyi");
+
+        // Efek mengetik pada teks utama
+        new TypeIt("#kalimat", {
+            speed: 50,
+            startDelay: 900
+        }).type(kalimatText).go();
+
+        new TypeIt("#pesanAkhir", {
+            speed: 50,
+            startDelay: 4000
+        }).type(pesanAkhirText).go();
+
+    }, 3000); // Tunda 3 detik sebelum menampilkan teks cinta
+}
 </script>
 
 </body>
