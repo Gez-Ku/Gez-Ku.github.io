@@ -31,13 +31,9 @@
    </div>
    
    <div id='Content'>
-     <div id="ftAwal">
-       <!-- Stiker Pembuka (Dihapus) -->
-     </div>
-
      <div id="loveIn">
        <!-- Tombol LOVE -->
-       <label class='lovein'>&#10084;</label>
+       <label class='lovein' onclick="mulaiCerita()">&#10084;</label>
      </div>
      <p id="ket">Sentuh LOVEnya!</p>
 
@@ -47,18 +43,16 @@
          <img src="https://feeldreams.github.io/paplalulintas4.jpeg" id="wallpaper4"/>
      </div>
 
-     <div>
-       <div id='pergeseran'>
+     <div id='pergeseran' class="sembunyi">
          <p><b><span>hii ayaangggg</span></b></p>
          <p><b><span>maaf yaa kalo aku<br>suka bkin kamu kesel</span></b></p>
          <p><b><span>aku cuma mau bilang</span></b></p>
          <p><b><span>pncet ini dlu ya 👉💌</span></b></p>
-       </div>
      </div>
 
-     <p id="ketgeser">Klik untuk Geser!</p>
+     <p id="ketgeser" class="sembunyi">Klik untuk Geser!</p>
 
-     <div>
+     <div id="pesanCinta" class="sembunyi">
        <blockquote id='bq'>
          <p id="kalimat">
            maaf ya aku belum bisa jadi yang terbaik buat kamu,<br><br>
@@ -74,15 +68,15 @@
 <script>
 const body = document.querySelector("body");
 const iniwp = [];
-iden = 1;
+let iden = 1;
 iniwp[1] = wallpaper.src;
 iniwp[2] = wallpaper2.src;
 iniwp[3] = wallpaper3.src;
 iniwp[4] = wallpaper4.src;
-katakata = kalimat.innerHTML;
-pesanAkhir2 = pesanAkhir.innerHTML;
-kalimat.innerHTML = "";
-pesanAkhir.innerHTML = "";
+katakata = document.getElementById("kalimat").innerHTML;
+pesanAkhir2 = document.getElementById("pesanAkhir").innerHTML;
+document.getElementById("kalimat").innerHTML = "";
+document.getElementById("pesanAkhir").innerHTML = "";
 
 const swalst = Swal.mixin({
     timer: 2500,
@@ -92,7 +86,7 @@ const swalst = Swal.mixin({
     imageHeight: 90,
 });
 
-audio = new Audio('' + linkmp3.src);
+const audio = new Audio(document.getElementById("linkmp3").src);
 
 function berjatuhan() {
     const heart = document.createElement("div");
@@ -103,13 +97,29 @@ function berjatuhan() {
 }
 
 setInterval(function () {
-    var heartArr = document.querySelectorAll(".fa-heart");
+    let heartArr = document.querySelectorAll(".fa-heart");
     if (heartArr.length > 100) {
-        heartArr[0].remove()
+        heartArr[0].remove();
     }
 }, 100);
 
-Content.style = "opacity:1;margin-top:14vh";
+document.getElementById("Content").style = "opacity:1;margin-top:14vh";
+
+function mulaiCerita() {
+    document.getElementById("loveIn").style.display = "none";
+    document.getElementById("ket").style.display = "none";
+    document.getElementById("pergeseran").classList.remove("sembunyi");
+    document.getElementById("ketgeser").classList.remove("sembunyi");
+    audio.play();
+    new TypeIt("#kalimat", {
+        speed: 50,
+        startDelay: 900
+    }).type(katakata).go();
+    new TypeIt("#pesanAkhir", {
+        speed: 50,
+        startDelay: 4000
+    }).type(pesanAkhir2).go();
+}
 
 const swals = Swal.mixin({
     allowOutsideClick: false,
